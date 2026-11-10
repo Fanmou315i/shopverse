@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopVerse · 发现好物</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/commerce.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">S</span><span>ShopVerse</span></div>
+      <span class="location">上海 · 为你配送</span>
+    </header>
+
+    <main>
+      <section id="page-home" class="page active" aria-label="首页">
+        <div class="hero-copy"><p class="eyebrow">EVERYDAY, BETTER</p><h1>简单挑选，<br />安心下单。</h1></div>
+        <form id="search-form" class="search-box"><span>⌕</span><input id="search-input" placeholder="搜索商品、品牌或灵感" autocomplete="off" /><button type="submit">搜索</button></form>
+        <section id="campaign" class="campaign" aria-label="本期活动"></section>
+        <section><div class="section-heading"><h2>探索分区</h2><span>精选分类</span></div><div id="categories" class="categories"></div></section>
+        <section><div class="section-heading"><h2 id="products-title">为你推荐</h2><button id="reset-filter" class="text-button" hidden>查看全部</button></div><div id="products" class="product-grid"></div></section>
+      </section>
+
+      <section id="page-messages" class="page" aria-label="消息">
+        <div class="page-title"><div><p class="eyebrow">INBOX</p><h1>消息</h1></div><span class="status-dot">在线</span></div>
+        <div class="message-card"><div class="message-card-title"><span class="avatar avatar-service">安</span><div><strong>ShopVerse 服务中心</strong><small>通常在 5 分钟内回复</small></div></div><div id="message-list" class="message-list"></div><form id="message-form" class="composer"><input id="message-input" maxlength="240" placeholder="输入消息…" /><button type="submit" aria-label="发送消息">↑</button></form></div>
+      </section>
+
+      <section id="page-cart" class="page" aria-label="购物车">
+        <div class="page-title"><div><p class="eyebrow">MY BAG</p><h1>购物车</h1></div><button id="cart-select-all" class="text-button">全选</button></div>
+        <div id="cart-list" class="cart-list"></div>
+        <div id="cart-summary" class="checkout-bar"></div>
+      </section>
+
+      <section id="page-profile" class="page" aria-label="个人中心">
+        <div id="profile" class="profile-content"></div>
+      </section>
+
+      <section id="page-checkout" class="page" aria-label="确认订单"></section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="主要导航">
+      <button class="nav-item active" data-page="home"><span>⌂</span><small>首页</small></button>
+      <button class="nav-item" data-page="messages"><span>◌</span><small>消息</small></button>
+      <button class="nav-item" data-page="cart"><span>▱</span><small>购物车</small><i id="cart-badge" hidden>0</i></button>
+      <button class="nav-item" data-page="profile"><span>◉</span><small>个人</small></button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+  <script src="/commerce.js"></script>
+  <script src="/account.js"></script>
+  <script src="/experience.js"></script>
+</body>
+</html>

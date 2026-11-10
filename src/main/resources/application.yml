@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: shopverse
+  datasource:
+    url: jdbc:h2:mem:shopverse;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+  kafka:
+    consumer:
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      ack-mode: record
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+shopverse:
+  redis:
+    enabled: ${SHOPVERSE_REDIS_ENABLED:false}
+  inventory:
+    initial-stock:
+      1: 1200
+      2: 2400
+      3: 3200
+      4: 1800
+      5: 5000
+      6: 950
+      7: 800
+      8: 600
+      9: 1500
+      10: 2600
+      11: 1100
+      12: 2800
+
+server:
+  port: 8080
+
+commerce:
+  kafka:
+    enabled: ${KAFKA_ENABLED:false}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

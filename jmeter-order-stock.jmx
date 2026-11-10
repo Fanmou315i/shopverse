@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="ShopVerse 库存防超卖压测" enabled="true">
+      <stringProp name="TestPlan.comments">80 并发用户，每人提交 10 次笔记本订单。初始库存 600，预计 600 个 201 成功、200 个 400 库存不足，超卖率应为 0。</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="80 并发下单" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${__P(loops,10)}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(threads,80)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(ramp,5)}</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP 默认配置" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true"/>
+          <stringProp name="HTTPSampler.domain">${__P(host,localhost)}</stringProp>
+          <stringProp name="HTTPSampler.port">${__P(port,8080)}</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="JSON 请求头" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header"><stringProp name="Header.name">Content-Type</stringProp><stringProp name="Header.value">application/json</stringProp></elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="提交笔记本订单" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">{&quot;productId&quot;:8,&quot;variant&quot;:&quot;16GB+512GB / 星空灰&quot;,&quot;quantity&quot;:1,&quot;couponCode&quot;:&quot;&quot;,&quot;paymentMethod&quot;:&quot;jmeter-stress&quot;,&quot;receiverName&quot;:&quot;JMeter&quot;,&quot;receiverPhone&quot;:&quot;13800000000&quot;,&quot;receiverAddress&quot;:&quot;本地压测地址&quot;}</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/api/orders/direct</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <stringProp name="HTTPSampler.connect_timeout">3000</stringProp>
+          <stringProp name="HTTPSampler.response_timeout">10000</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

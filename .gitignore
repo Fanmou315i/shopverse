@@ -1,0 +1,13 @@
+target/
+work/
+.idea/
+.vscode/
+*.iml
+*.log
+*.jtl
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
